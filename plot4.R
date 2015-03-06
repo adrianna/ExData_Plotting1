@@ -1,17 +1,16 @@
 library(dplyr)
 
-setwd("School/coursera/ExploratoryDataAnalysis/project/wk1/")
+setwd("~/School/coursera/ExploratoryDataAnalysis/project/wk1/")
 
-# Data subsetted outside of R -environment into new file
-# Used grep -P -e "^[01]{1}\/2\/2007" filename > new_filename
-# head -1 filename > headers; cat new_filename >> headers; mv headers new_filename
-d07 <- read.csv("household_Feb2007.txt", header=T, sep=";")
+# Data being chunked in... 
+d07 <- subset(read.csv("household_power_consumption.txt", header=T, sep=";"), 
+              (grepl("^[12]{1}\\/2\\/2007", Date) ))
 
 # Create new column Times - Date/Time \s[pace] separated as POSIXct
 d07$Times <- as.POSIXct(strptime(paste(d07$Date, d07$Time), "%d/%m/%Y %H:%M:%S"))
 
 # Plot Multiple graphs in Lattice
-par(mfrow=c(2,2), mar=c(4,4,2,1))
+par(mfrow=c(2,2), mar=c(4,4,2,1), cex=0.75, bg=NA)
 with(d07, {
   plot(Times, Global_active_power, type="l", ylab="Global Active Power", xlab="")
   plot(Times, Voltage, ylab="Voltage", type="l", xlab="datetime")
@@ -27,4 +26,5 @@ with(d07, {
   axis(2,c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5))
 }
 )
-png("plot4.png")
+png(file="plot4.png", width=480, height=480)
+dev.off(dev.list()["RStudioGD"])
