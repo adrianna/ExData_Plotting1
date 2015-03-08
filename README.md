@@ -1,12 +1,8 @@
 ## Introduction
 
-This assignment uses data from
-the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
-Learning Repository</a>, a popular repository for machine learning
-datasets. In particular, we will be using the "Individual household
-electric power consumption Data Set" which I have made available on
+This assignment uses data from the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
+Learning Repository</a>, a popular repository for machine learning datasets. In particular, we will be using the "Individual household electric power consumption Data Set" which I have made available on
 the course web site:
-
 
 * <b>Dataset</b>: <a href="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip">Electric power consumption</a> [20Mb]
 
@@ -14,7 +10,6 @@ the course web site:
 one household with a one-minute sampling rate over a period of almost
 4 years. Different electrical quantities and some sub-metering values
 are available.
-
 
 The following descriptions of the 9 variables in the dataset are taken
 from
@@ -35,27 +30,17 @@ web site</a>:
 
 ## Loading the data
 
+The dataset has 2,075,259 rows and 9 columns and will be subsetted as it being read-in. To accomplish this:
 
+1. Download the data from this <a href="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip">URL</a>. This file will be a compressed ZIP file. Store the ZIP file in a temp directory. Use tempfile() to create the temp
+directory.
 
+2. Unzip the file, using unzip() and store the uncompressed file in the local working directory of your project.
 
+3. Subset the data using a combination of subset(), read.csv() and grepl() to select the specific dates from the dataset.
+   Include data from the dates 2007-02-01 and 2007-02-02 only. 
 
-When loading the dataset into R, please consider the following:
-
-* The dataset has 2,075,259 rows and 9 columns. First
-calculate a rough estimate of how much memory the dataset will require
-in memory before reading into R. Make sure your computer has enough
-memory (most modern computers should be fine).
-
-* We will only be using data from the dates 2007-02-01 and
-2007-02-02. One alternative is to read the data from just those dates
-rather than reading in the entire dataset and subsetting to those
-dates.
-
-* You may find it useful to convert the Date and Time variables to
-Date/Time classes in R using the `strptime()` and `as.Date()`
-functions.
-
-* Note that in this dataset missing values are coded as `?`.
+4. Plot the graphs according to the instructions below.
 
 
 ## Making Plots

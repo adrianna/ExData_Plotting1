@@ -1,17 +1,50 @@
+#################################
+##
+## Exploratory Data Analysis
+## File: plot4.R
+##              
+################################
+
 library(dplyr)
 
-setwd("~/School/coursera/ExploratoryDataAnalysis/project/wk1/")
+# Set Directory to local (project) directory
+setwd("~/School/coursera/ExploratoryDataAnalysis/project/wk1")
+
+# Data for Household Power Consumption is found at: 
+# URL: http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
+# Compressed File: "household_power_consumption.zip"
+# Extracted  File: "household_power_consumption.txt"
+
+fileURL  <- "http://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+zipfile  <- "household_power_consumption.zip"
+
+# Create Temporary directory for file extraction and Extract data into local directory
+zipdir   <- tempfile() 
+dir.create(zipdir)
+download.file(fileURL, destfile=paste(zipdir, zipfile, sep="/"), method="curl")
+
+# Extract to local directory
+unzip(paste(zipdir, zipfile, sep="/"), exdir="./")
+
+# List File
+unzipfile <- list.files(pattern=".txt")
 
 # Data being chunked in... 
-d07 <- subset(read.csv("household_power_consumption.txt", header=T, sep=";"), 
-              (grepl("^[12]{1}\\/2\\/2007", Date) ))
+data_2007 <- subset(read.csv(unzipfile, header=T, sep=";", na.strings="?"), 
+                    (grepl("^[12]{1}\\/2\\/2007", Date) ))
+
+# Write data to table - to check subsetting
+#write.csv(data_2007, "test_data2007.txt", row.names=F, quote=F)
 
 # Create new column Times - Date/Time \s[pace] separated as POSIXct
-d07$Times <- as.POSIXct(strptime(paste(d07$Date, d07$Time), "%d/%m/%Y %H:%M:%S"))
+data_2007$Times <- as.POSIXct(strptime(paste(data_2007$Date, data_2007$Time), "%d/%m/%Y %H:%M:%S"))
+
+# Print to png file
+png(file="plot4.png", width=480, height=480, bg="transparent")
 
 # Plot Multiple graphs in Lattice
 par(mfrow=c(2,2), mar=c(4,4,2,1), cex=0.75, bg=NA)
-with(d07, {
+with(data_2007, {
   plot(Times, Global_active_power, type="l", ylab="Global Active Power", xlab="")
   plot(Times, Voltage, ylab="Voltage", type="l", xlab="datetime")
   plot(Times, Sub_metering_1, yaxt= "n", type="n", ylim=c(0,40), ylab="Energy Sub Metering", xlab="")
@@ -26,5 +59,5 @@ with(d07, {
   axis(2,c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5))
 }
 )
-png(file="plot4.png", width=480, height=480)
-dev.off(dev.list()["RStudioGD"])
+
+dev.off()
