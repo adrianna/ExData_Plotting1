@@ -56,7 +56,7 @@ with(data_2007, {
   lines(Times, Sub_metering_3, type="l", col="blue")
   legend("topright", lty=1, col=c("black", "red", "blue"), 
          legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
-         cex=0.8, bty = "n")
+         cex=0.65, bty = "n")
   plot(Times,Global_reactive_power,type="l", yaxt= "n", ylab="Global_reactive_power", xlab="datetime")
   axis(2,c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5))
 }
