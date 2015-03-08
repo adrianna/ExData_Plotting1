@@ -32,10 +32,9 @@ web site</a>:
 
 The dataset has 2,075,259 rows and 9 columns and will be subsetted as it being read-in. To accomplish this:
 
-1. Download the data from this <a href="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip">URL</a>. This file will be a compressed ZIP file. Store the ZIP file in a temp directory. Use tempfile() to create the temp
-directory.
+1. Download the data from this <a href="https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip">URL</a>. This file will be a compressed ZIP file. Store the ZIP file in a temp directory. Use tempfile() and dir.create() to create temporary directory for the downloaded compressed ZIP file.
 
-2. Unzip the file, using unzip() and store the uncompressed file in the local working directory of your project.
+2. Unzip the compressed file, using unzip() and store the uncompressed file in the local working directory of your project.
 
 3. Subset the data using a combination of subset(), read.csv() and grepl() to select the specific dates from the dataset.
    Include data from the dates 2007-02-01 and 2007-02-02 only. 
